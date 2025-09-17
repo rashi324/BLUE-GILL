@@ -1,7 +1,7 @@
 import React from 'react'
 import Hero from '../components/Hero'
 import LatestCollection from '../components/LatestCollection'
-import Bestseller from '../components/Bestseller'
+import BestSeller from '../components/BestSeller'
 import OurPolicy from '../components/OurPolicy'
 import NewsletterBox from '../components/NewsletterBox'
 
@@ -11,7 +11,7 @@ const Home = () => {
     <div>
         <Hero />
         <LatestCollection />
-        <Bestseller />
+        <BestSeller />
         <OurPolicy />
         <NewsletterBox />
     </div>
