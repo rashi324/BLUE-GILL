@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // <-- Added useNavigate
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
@@ -7,12 +7,12 @@ import RelatedProducts from '../components/RelatedProducts';
 const Product = () => {
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
+  const navigate = useNavigate(); // <-- Added
 
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState('');
   const [size, setSize] = useState('');
 
-  // More efficient version of fetchProductData using .find()
   useEffect(() => {
     if (products.length > 0) {
       const item = products.find((item) => item._id === productId);
@@ -82,18 +82,20 @@ const Product = () => {
             </div>
           </div>
 
-         <button
-  onClick={() => addToCart(productData._id, size)}
-  disabled={!size}
-  className={`px-8 py-3 text-sm ${
-    size
-      ? 'bg-green-500 text-white hover:bg-green-600'
-      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-  }`}
->
-  ADD TO CART
-</button>
-
+          <button 
+            onClick={() =>  {
+              addToCart(productData._id, size);
+              navigate('/cart');
+            }}
+            disabled={!size}
+            className={`px-8 py-3 text-sm ${
+              size
+                ? 'bg-green-500 text-white hover:bg-green-600'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+          >
+            ADD TO CART
+          </button>
 
           <hr className="mt-8 sm:w-4/5" />
 
