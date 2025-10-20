@@ -21,6 +21,7 @@ const razorpayInstance = new razorpay({
 
 const placeOrder = async (req, res) => {
 
+    
     try {
 
         const { userId, items, amount, address } = req.body;
@@ -51,6 +52,7 @@ const placeOrder = async (req, res) => {
 
 // placing orders using stripe Method
 const placeOrderStripe = async (req, res) => {
+    
     try {
 
         const { userId, items, amount, address } = req.body;
@@ -130,6 +132,7 @@ const verifyStripe = async (req, res) => {
 
 // placing orders using Razorpay Method
 const placeOrderRazorpay = async (req, res) => {
+   
     try {
         const { userId, items, amount, address } = req.body;
 
