@@ -14,8 +14,8 @@ const Add = ({ token }) => {
   const [name, setName] = useState("");
   const [description, seDescription] = useState("");
   const [Price, setPrice] = useState("");
-  const [category, setCategory] = useState("Men");
-  const [subCategory, setSubCategory] = useState("Topwear");
+  const [category, setCategory] = useState("Women");
+  const [subCategory, setSubCategory] = useState("kurtha");
   const [sizes, setSizes] = useState([]);
   const [bestseller, setBestseller] = useState(false);
 
@@ -50,13 +50,13 @@ const Add = ({ token }) => {
         setImage3(false)
         setImage4(false)
         setPrice('')
-      }  else{
-         toast.error(response.data.message)
+      } else {
+        toast.error(response.data.message)
       }
 
     } catch (error) {
-         console.log(error);
-         toast.error(error.message)
+      console.log(error);
+      toast.error(error.message)
     }
   }
 
@@ -104,7 +104,7 @@ const Add = ({ token }) => {
         <div>
           <p className='mb-2'>Product Category</p>
           <select onChange={(e) => setCategory(e.target.value)} className='w-full px-3 py-2 '>
-            <option value="Men">Men</option>
+            { /*<option value="Men">Men</option> */}
             <option value="Women">Women</option>
             <option value="Kids">Kids</option>
           </select>
@@ -113,9 +113,9 @@ const Add = ({ token }) => {
         <div>
           <p className='mb-2'>Sub Category</p>
           <select onChange={(e) => setSubCategory(e.target.value)} className='w-full px-3 py-2 '>
-            <option value="Topwear">Topwear</option>
-            <option value="Bottomwear">Bottomwear</option>
-            <option value="Winterwear">Winterwear</option>
+            <option value="kurtha">Kurtha</option>
+            <option value="gown">Gown</option>
+            <option value="churidhar">Churidhar</option>
           </select>
         </div>
 
