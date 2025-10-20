@@ -58,6 +58,10 @@ import p_img52 from './p_img52.png'
 
 import logo2 from './logo2.png'
 import hero_img from './hero_img.png'
+import hero_img1 from './hero_img1.png'
+import hero_img2 from './hero_img2.png'
+import hero_img3 from './hero_img3.png'
+import hero_img4 from './hero_img4.png'
 import cart_icon from './cart_icon.png'
 import bin_icon from './bin_icon.png'
 import dropdown_icon from './dropdown_icon.png'
@@ -78,6 +82,10 @@ import cross_icon from './cross_icon.png'
 export const assets = {
     logo2,
     hero_img,
+    hero_img1,
+    hero_img2,
+    hero_img3,
+    hero_img4,
     cart_icon,
     dropdown_icon,
     exchange_icon,
