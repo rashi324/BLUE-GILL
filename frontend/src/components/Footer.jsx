@@ -9,8 +9,9 @@ const Footer = () => {
           <div>
             <img src={assets.logo2} className='mb-5 w-32' alt="" />
             <p className='w-full md:w-2/3 text-gray-600 '>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum in incidunt atque doloremque similique inventore harum fugit odio vitae perferendis, deserunt excepturi non numquam vero porro repellendus architecto autem dolorum.
-            </p>
+          Blue Gill Women’s Store is a premier handmade women’s clothing brand dedicated to creating timeless and stylish apparel. Specializing in Kurtas, Churidars, and Gowns, we combine traditional craftsmanship with contemporary designs to offer garments that stand out for their elegance and comfort.
+
+ </p>
           </div>
 
          <div>
@@ -36,7 +37,7 @@ const Footer = () => {
 
         <div>
           <hr />
-          <p className='py-5 text-sm text-center'>Copyright 2025@ bluegill.com - All Right Reserverd.</p>
+          <p className='py-5 text-sm text-center'>Copyright 2025@ rashiidrashi5@gmail.com - All Right Reserverd.</p>
         </div>
 
     </div>
