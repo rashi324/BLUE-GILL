@@ -6,8 +6,6 @@ import { ShopContext } from '../context/ShopContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-
-
 const Placeholder = () => {
 
      const [method, setMethod] = useState('cod');
@@ -28,42 +26,44 @@ const Placeholder = () => {
           const name = event.target.name;
           const value = event.target.value
           setFormData(data => ({ ...data, [name]: value }))
-
      }
 
      const initPay = (order) => {
-              const options = {
-                key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-                amount: order.amount,
-                currency: order.currency,
-                name: 'Order Payment',
-                description: 'Order Payment',
-                order_id: order.id,
-                receipt: order. receipt,
-                handler: async (response) => {
-                      console.log(response)
-                      try {
-                         const {data} = await axios.post(backendUrl + '/api/order/verifyRazorpay', response, {headers: {token}})
-                         if (data.success) {
-                              navigate('/orders')
-                              setCartItems({})
-                         }
-                      } catch (error) {
-                         console.log(error)
-                         toast.error(error)
-                         
-                      }
-                }
-              }
-              const rzp = new window.Razorpay(options)
-              rzp.open()
+         const options = {
+             key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+             amount: order.amount,
+             currency: order.currency,
+             name: 'Order Payment',
+             description: 'Order Payment',
+             order_id: order.id,
+             receipt: order.receipt,
+             handler: async (response) => {
+                 try {
+                     const { data } = await axios.post(backendUrl + '/api/order/verifyRazorpay', response, { headers: { token } })
+                     if (data.success) {
+                         navigate('/orders')
+                         setCartItems({})
+                     }
+                 } catch (error) {
+                     console.log(error)
+                     toast.error(error.message)
+                 }
+             }
+         }
+         const rzp = new window.Razorpay(options)
+         rzp.open()
      }
-
 
      const onSubmitHandler = async (event) => {
           event.preventDefault()
-          try {
 
+          // Check if user is signed in
+          if (!token) {
+               toast.error("Please sign up or log in to place an order!")
+               return
+          }
+
+          try {
                let orderItems = []
 
                for (const items in cartItems) {
@@ -86,8 +86,6 @@ const Placeholder = () => {
                }
 
                switch (method) {
-
-                    // API calls for cod
                     case 'cod':
                          const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } })
                          if (response.data.success) {
@@ -98,32 +96,26 @@ const Placeholder = () => {
                          }
                          break;
 
-                         case 'stripe':
-                                 
-                              const responseStripe = await axios.post(backendUrl + '/api/order/stripe',orderData,{headers:{token}})
-                             if (responseStripe.data.success) {
-                                const {session_url} = responseStripe.data
-                                window.location.replace(session_url)
-                
-                             } else {
-                                   toast.error(responseStripe.data.message)
-                             }
-                              break;
+                    case 'stripe':
+                         const responseStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, { headers: { token } })
+                         if (responseStripe.data.success) {
+                              const { session_url } = responseStripe.data
+                              window.location.replace(session_url)
+                         } else {
+                              toast.error(responseStripe.data.message)
+                         }
+                         break;
 
-                              case 'razorpay':
-                                    
-                                 const responseRazorpay = await axios.post(backendUrl + '/api/order/razorpay', orderData, {headers: {token}})
-                                 if (responseRazorpay.data.success) {
-                                   initPay(responseRazorpay.data.order)
-                                          
-                                 }
-
-                              break;
+                    case 'razorpay':
+                         const responseRazorpay = await axios.post(backendUrl + '/api/order/razorpay', orderData, { headers: { token } })
+                         if (responseRazorpay.data.success) {
+                              initPay(responseRazorpay.data.order)
+                         }
+                         break;
 
                     default:
                          break;
                }
-
 
           } catch (error) {
                console.log(error)
@@ -131,13 +123,11 @@ const Placeholder = () => {
           }
      }
 
-
      return (
           <form onSubmit={onSubmitHandler} className='flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t'>
 
                {/**-----------left side ----------------- */}
                <div className='flex flex-col gap-4 w-full sm:max-w-[400px]'>
-
                     <div className='text-xl sm:text-2xl my-3'>
                          <Title text1={'DELIVERY'} text2={'INFORMATION'} />
                     </div>
@@ -157,10 +147,9 @@ const Placeholder = () => {
                     </div>
                     <input required onChange={onChangeHandler} name='phone' value={formData.phone} className='border border-gray-300 rounded py-1.5 px-3.5 w-full ' type="number" placeholder='Phone' />
                </div>
+
                {/**------------right side --------- */}
-
                <div className='mt-8'>
-
                     <div className='mt-8 min-w-80'>
                          <CartTotal />
                     </div>
